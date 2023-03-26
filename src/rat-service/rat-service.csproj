@@ -11,4 +11,9 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\rat-service-core\rat-service-core.csproj" />
+    <ProjectReference Include="..\rat-service-infrastructure\rat-service-infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>
