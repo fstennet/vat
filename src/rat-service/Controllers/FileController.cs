@@ -43,7 +43,7 @@ public class FileController : ControllerBase
     [HttpPost]
     public IActionResult Post([FromBody] CloudStorageObject file)
     {
-        var result = _storageClient.UploadFile(_storageOptions.BucketName, file.FileName, file.ContentType, file.FileString.ToMemoryStream(), file.Labels);
+        var result = _storageClient.UploadFileWithMetadata(_storageOptions.BucketName, file.FileName, file.ContentType, file.FileString.ToMemoryStream(), file.Labels);
 
         return Ok(result);
     }

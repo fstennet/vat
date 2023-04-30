@@ -8,5 +8,6 @@ public interface ICloudStorageClient
   Task<MemoryStream> GetFileAsync(string bucketName, string fileName);
   IEnumerable<CloudStorageObjectMetadata> ListFiles(string? bucketName);
   string UploadFile(string bucketName, string fileName, string contentType, Stream fileStream, IDictionary<string, string> labels);
+  string UploadFileWithMetadata(string bucketName, string fileName, string contentType, Stream fileStream, IDictionary<string, string> labels);
   MemoryStream GetFile(string? bucketName, string? fileName);
 }
