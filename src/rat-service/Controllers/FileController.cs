@@ -1,0 +1,50 @@
+using rat_service_core.Interfaces;
+using rat_service_core.Entities;
+using rat_service.Helpers;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
+
+namespace rat_service.Controllers;
+
+[Route("api/[controller]")]
+[ApiController]
+public class FileController : ControllerBase
+{
+    private readonly ICloudStorageClient _storageClient;
+    private readonly CloudStorageOptions _storageOptions;
+    private readonly ILogger<FileController> _logger;
+    
+    public FileController(ICloudStorageClient storageClient, IOptions<CloudStorageOptions> storageOptions, ILogger<FileController> logger)
+    {
+        _storageClient = storageClient ?? throw new ArgumentNullException(nameof(storageClient));
+        _storageOptions = storageOptions.Value ?? throw new ArgumentNullException(nameof(storageOptions));
+        _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+    }
+
+    [HttpGet("list")]
+    public IEnumerable<CloudStorageObjectMetadata> List()
+    {
+        return _storageClient.ListFiles(_storageOptions.BucketName);
+    }
+
+    [HttpGet]
+    public IActionResult Get(string fileName)
+    {
+        var memStream = _storageClient.GetFile(_storageOptions.BucketName, fileName);
+
+        if (memStream != null)
+        {
+            return Ok(memStream.ToBase64String());
+        }
+        
+        return NotFound("File not found");
+    }
+
+    [HttpPost]
+    public IActionResult Post([FromBody] CloudStorageObject file)
+    {
+        var result = _storageClient.UploadFile(_storageOptions.BucketName, file.FileName, file.ContentType, file.FileString.ToMemoryStream(), file.Labels);
+
+        return Ok(result);
+    }
+}
