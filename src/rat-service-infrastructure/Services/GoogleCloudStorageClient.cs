@@ -62,4 +62,23 @@ public class GoogleCloudStorageClient : ICloudStorageClient
   {
     throw new NotImplementedException();
   }
+
+  public string UploadFileWithMetadata(string bucketName, string fileName, string contentType, Stream fileStream, IDictionary<string, string> labels)
+  {
+    try
+    {
+      var result = _storageClient.UploadObject(bucketName, fileName, contentType, fileStream);
+
+      result.Metadata = labels;
+
+      var resultWithMetadata = _storageClient.UpdateObject(result);
+
+      return resultWithMetadata.Id;
+    }
+    catch (Exception ex)
+    {
+      _logger.LogError("An exception occured while uploading a file. Exception: {exception}", ex.Message);
+      throw;
+    }
+  }
 }
