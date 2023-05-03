@@ -1,4 +1,4 @@
-namespace rat_service.Helpers;
+namespace rat_service.Extensions;
 
 public static class Conversion
 {

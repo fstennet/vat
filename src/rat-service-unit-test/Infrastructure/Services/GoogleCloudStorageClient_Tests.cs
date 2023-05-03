@@ -2,7 +2,6 @@ using Google.Cloud.Storage.V1;
 using Moq;
 using rat_service_infrastructure.Services;
 using Microsoft.Extensions.Logging;
-using System.Text;
 
 namespace rat_service_unit_test.Infrastructure.Services;
 
