@@ -35,7 +35,7 @@ jobs:
     displayName: Test
     inputs:
       command: test
-      projects: '**/*tests.csproj'
+      projects: 'src/scapp-tests/scapp-tests.csproj'
       arguments: '--configuration $(BuildConfiguration)'
 
 - job: PublishAndArchive
