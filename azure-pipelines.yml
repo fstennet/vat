@@ -1,0 +1,73 @@
+
+trigger:
+  branches:
+    include:
+      - master
+      - development
+      - feature/*
+
+jobs:
+- job: BuildAndTest
+  displayName: Build and Test
+  pool:
+    vmImage: 'ubuntu-latest'
+  steps:
+  - checkout: self
+
+  - task: UseDotNet@2
+    inputs:
+      version: '6.x'
+
+  - task: DotNetCoreCLI@2
+    displayName: Restore
+    inputs:
+      command: restore
+      projects: '**/*.csproj'
+
+  - task: DotNetCoreCLI@2
+    displayName: Build
+    inputs:
+      command: build
+      projects: '**/*.csproj'
+      arguments: '--configuration $(BuildConfiguration)'
+
+  - task: DotNetCoreCLI@2
+    displayName: Test
+    inputs:
+      command: test
+      projects: '**/*tests.csproj'
+      arguments: '--configuration $(BuildConfiguration)'
+
+- job: PublishAndArchive
+  displayName: Publish and Archive
+  dependsOn: BuildAndTest
+  condition: succeeded('BuildAndTest')
+  pool:
+    vmImage: 'ubuntu-latest'
+  steps:
+  - task: UseDotNet@2
+    inputs:
+      version: '6.x'
+
+  - task: DotNetCoreCLI@2
+    displayName: Publish
+    inputs:
+      command: publish
+      publishWebProjects: true
+      projects: '**/*.csproj'
+      arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)'
+
+  - task: ArchiveFiles@2
+    displayName: Archive
+    inputs:
+      rootFolderOrFile: '$(Build.ArtifactStagingDirectory)'
+      includeRootFolder: false
+      archiveType: 'zip'
+      archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+      replaceExistingArchive: true
+
+  - task: PublishBuildArtifacts@1
+    displayName: Publish Artifact
+    inputs:
+      artifactName: 'drop'
+      pathToPublish: '$(Build.ArtifactStagingDirectory)'
