@@ -15,6 +15,7 @@ jobs:
   - checkout: self
 
   - task: UseDotNet@2
+    displayName: Use .NET6
     inputs:
       version: '6.x'
 
@@ -41,7 +42,7 @@ jobs:
     displayName: Publish Code Coverage
     inputs:
       codeCoverageTool: 'Cobertura'
-      summaryFileLocation: 'TestResults/coverage.cobertura.xml'
+      summaryFileLocation: '**/coverage.cobertura.xml'
 
 - job: PublishAndArchive
   displayName: Publish and Archive
@@ -51,6 +52,7 @@ jobs:
     vmImage: 'ubuntu-latest'
   steps:
   - task: UseDotNet@2
+    displayName: Use .NET6
     inputs:
       version: '6.x'
 
