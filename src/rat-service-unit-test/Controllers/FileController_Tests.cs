@@ -102,7 +102,7 @@ public class FileController_Tests
         var response = _sut.List();
 
         // Assert
-        Assert.Equal(null, response);
+        Assert.Null(response);
     }
 
     [Fact]
