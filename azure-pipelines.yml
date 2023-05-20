@@ -42,7 +42,7 @@ jobs:
     displayName: Publish Code Coverage
     inputs:
       codeCoverageTool: 'Cobertura'
-      summaryFileLocation: '**/coverage.cobertura.xml'
+      summaryFileLocation: '**/*coverage.cobertura.xml'
 
 - job: PublishAndArchive
   displayName: Publish and Archive
