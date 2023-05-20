@@ -10,13 +10,13 @@ public class GoogleCloudStorageClient : ICloudStorageClient
   private readonly StorageClient _storageClient;
   private readonly ILogger<GoogleCloudStorageClient> _logger;
 
-  public GoogleCloudStorageClient(ILogger<GoogleCloudStorageClient> logger, StorageClient storageClient)
+  public GoogleCloudStorageClient(ILogger<GoogleCloudStorageClient> logger, StorageClient storageClient = null)
   {
     _logger = logger ?? throw new ArgumentNullException(nameof(logger));
-    _storageClient = storageClient ?? throw new ArgumentNullException(nameof(storageClient));
+    _storageClient = storageClient ?? StorageClient.Create();
   }
   
-  public MemoryStream? GetFile(string? bucketName, string? fileName)
+  public MemoryStream GetFile(string bucketName, string fileName)
   {
     try
     {
@@ -38,7 +38,7 @@ public class GoogleCloudStorageClient : ICloudStorageClient
     return objectList.Select(x => new CloudStorageObjectMetadata() { FileName = x.Name, ContentType = x.ContentType, Labels = x.Metadata });
   }
 
-  public string? UploadFile(string bucketName, string fileName, string contentType, Stream fileStream)
+  public string UploadFile(string bucketName, string fileName, string contentType, Stream fileStream)
   {
     try
     {

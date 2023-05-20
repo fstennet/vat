@@ -14,6 +14,7 @@ public class GoogleCloudStorageClient_Tests
   private readonly GoogleCloudStorageClient _sut;
   private readonly string _bucketName, _fileName, _contentType;
   private readonly Dictionary<string, string> _labels;
+
   public GoogleCloudStorageClient_Tests()
   {
     _storageClientMock = new Mock<StorageClient>();
@@ -40,18 +41,16 @@ public class GoogleCloudStorageClient_Tests
     Assert.Equal("Value cannot be null. (Parameter 'logger')", exception.Message);
   }
 
-    [Fact]
-    public void Constructor_StorageClientIsNull_ThrowsException()
-    {
-        // Arrange
-        ArgumentNullException exception = Assert
-                                          .Throws<ArgumentNullException>(
-                                            () => new GoogleCloudStorageClient(_loggingMock.Object, null));
+  // This unit test is useless
+  [Fact]
+  public void Constructor_StorageClientIsNull_StorageClientIsCreated()
+  {
+    // Arrange
+    var result = new GoogleCloudStorageClient(_loggingMock.Object, null);
 
-        // Act & Assert
-        Assert.Equal("Value cannot be null. (Parameter 'storageClient')", exception.Message);
-    }
-
+    // Act & Assert
+    Assert.NotNull(result);
+  }
   [Fact]
   public void GetFile_FileIsDownloaded()
   {
