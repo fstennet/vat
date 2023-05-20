@@ -1,6 +1,7 @@
 using rat_service_core.Interfaces;
 using rat_service_core.Entities;
 using rat_service_infrastructure.Services;
+using System.Diagnostics.CodeAnalysis;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -32,3 +33,6 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+[ExcludeFromCodeCoverage]
+public partial class Program {}
