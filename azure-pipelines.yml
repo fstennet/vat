@@ -64,15 +64,6 @@ jobs:
       projects: '**/*.csproj'
       arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)'
 
-  - task: ArchiveFiles@2
-    displayName: Archive
-    inputs:
-      rootFolderOrFile: '$(Build.ArtifactStagingDirectory)'
-      includeRootFolder: false
-      archiveType: 'zip'
-      archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
-      replaceExistingArchive: true
-
   - task: PublishBuildArtifacts@1
     displayName: Publish Artifact
     inputs:
