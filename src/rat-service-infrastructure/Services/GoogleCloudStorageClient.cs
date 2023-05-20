@@ -10,10 +10,10 @@ public class GoogleCloudStorageClient : ICloudStorageClient
   private readonly StorageClient _storageClient;
   private readonly ILogger<GoogleCloudStorageClient> _logger;
 
-  public GoogleCloudStorageClient(ILogger<GoogleCloudStorageClient> logger, StorageClient storageClient = null)
+  public GoogleCloudStorageClient(ILogger<GoogleCloudStorageClient> logger, StorageClient storageClient)
   {
     _logger = logger ?? throw new ArgumentNullException(nameof(logger));
-    _storageClient = storageClient ?? StorageClient.Create();
+    _storageClient = storageClient ?? throw new ArgumentNullException(nameof(storageClient));
   }
   
   public MemoryStream? GetFile(string? bucketName, string? fileName)
@@ -31,11 +31,6 @@ public class GoogleCloudStorageClient : ICloudStorageClient
     }
   }
 
-  public Task<MemoryStream> GetFileAsync(string bucketName, string fileName)
-  {
-    throw new NotImplementedException();
-  }
-
   public IEnumerable<CloudStorageObjectMetadata> ListFiles(string? bucketName)
   {
     var objectList = _storageClient.ListObjects(bucketName);
@@ -43,7 +38,7 @@ public class GoogleCloudStorageClient : ICloudStorageClient
     return objectList.Select(x => new CloudStorageObjectMetadata() { FileName = x.Name, ContentType = x.ContentType, Labels = x.Metadata });
   }
 
-  public string? UploadFile(string bucketName, string fileName, string contentType, Stream fileStream, IDictionary<string, string> labels)
+  public string? UploadFile(string bucketName, string fileName, string contentType, Stream fileStream)
   {
     try
     {
@@ -57,12 +52,7 @@ public class GoogleCloudStorageClient : ICloudStorageClient
     }
 
   }
-
-  public Task<string> UploadFileAsync(string bucketName, string fileName, string contentType, Stream fileStream, Dictionary<string, string> labels)
-  {
-    throw new NotImplementedException();
-  }
-
+  
   public string UploadFileWithMetadata(string bucketName, string fileName, string contentType, Stream fileStream, IDictionary<string, string> labels)
   {
     try
