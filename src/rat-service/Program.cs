@@ -14,7 +14,6 @@ builder.Services.AddSwaggerGen();
 builder.Services.Configure<CloudStorageOptions>(builder.Configuration.GetSection("Cloud:Storage"));
 
 // Google Storage 
-builder.Services.AddScoped<StorageClientFactory>();
 builder.Services.AddScoped<ICloudStorageClient, GoogleCloudStorageClient>();
 
 var app = builder.Build();
