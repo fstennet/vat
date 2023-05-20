@@ -2,6 +2,7 @@ using rat_service_core.Interfaces;
 using rat_service_core.Entities;
 using rat_service_infrastructure.Services;
 using System.Diagnostics.CodeAnalysis;
+using Google.Cloud.Storage.V1;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,7 +15,12 @@ builder.Services.AddSwaggerGen();
 builder.Services.Configure<CloudStorageOptions>(builder.Configuration.GetSection("Cloud:Storage"));
 
 // Google Storage 
-builder.Services.AddScoped<ICloudStorageClient, GoogleCloudStorageClient>();
+builder.Services.AddScoped<ICloudStorageClient, GoogleCloudStorageClient>(
+    x => new GoogleCloudStorageClient(
+        x.GetRequiredService<ILogger<GoogleCloudStorageClient>>(),
+        StorageClient.Create()
+    )
+);
 
 var app = builder.Build();
 

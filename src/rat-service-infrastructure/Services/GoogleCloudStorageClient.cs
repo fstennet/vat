@@ -10,10 +10,10 @@ public class GoogleCloudStorageClient : ICloudStorageClient
   private readonly StorageClient _storageClient;
   private readonly ILogger<GoogleCloudStorageClient> _logger;
 
-  public GoogleCloudStorageClient(ILogger<GoogleCloudStorageClient> logger, StorageClient storageClient = null)
+  public GoogleCloudStorageClient(ILogger<GoogleCloudStorageClient> logger, StorageClient storageClient)
   {
     _logger = logger ?? throw new ArgumentNullException(nameof(logger));
-    _storageClient = storageClient ?? StorageClient.Create();
+    _storageClient = storageClient ?? throw new ArgumentNullException(nameof(storageClient));
   }
   
   public MemoryStream GetFile(string bucketName, string fileName)
