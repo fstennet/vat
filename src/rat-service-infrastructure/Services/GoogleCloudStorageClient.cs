@@ -31,7 +31,7 @@ public class GoogleCloudStorageClient : ICloudStorageClient
     }
   }
 
-  public IEnumerable<CloudStorageObjectMetadata> ListFiles(string? bucketName)
+  public IEnumerable<CloudStorageObjectMetadata> ListFiles(string bucketName)
   {
     var objectList = _storageClient.ListObjects(bucketName);
 

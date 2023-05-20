@@ -9,5 +9,5 @@ public class CloudStorageObject : CloudStorageObjectMetadata
 {
     [JsonPropertyName("fileString")]
     [Required]
-    public string? FileString { get; set; }
+    public string FileString { get; set; }
 }

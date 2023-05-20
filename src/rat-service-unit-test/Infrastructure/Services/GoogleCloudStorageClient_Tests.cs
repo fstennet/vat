@@ -106,7 +106,7 @@ public class GoogleCloudStorageClient_Tests
         It.IsAny<EventId>(),
         It.Is<It.IsAnyType>((@object, _) => @object.ToString().Contains("An exception occured while downloading a file.")),
         It.IsAny<Exception>(),
-        It.IsAny<Func<It.IsAnyType, Exception?, string>>()),
+        It.IsAny<Func<It.IsAnyType, Exception, string>>()),
         Times.Once);
   }
   
@@ -164,7 +164,7 @@ public class GoogleCloudStorageClient_Tests
           It.IsAny<EventId>(),
           It.Is<It.IsAnyType>((@object, _) => @object.ToString().Contains("An exception occured while uploading a file. Exception:")),
           It.IsAny<Exception>(),
-          It.IsAny<Func<It.IsAnyType, Exception?, string>>()),
+          It.IsAny<Func<It.IsAnyType, Exception, string>>()),
         Times.Once);
   }
 
@@ -215,7 +215,7 @@ public class GoogleCloudStorageClient_Tests
             It.IsAny<EventId>(),
             It.Is<It.IsAnyType>((@object, _) => @object.ToString().Contains("An exception occured while uploading a file. Exception:")),
             It.IsAny<Exception>(),
-            It.IsAny<Func<It.IsAnyType, Exception?, string>>()),
+            It.IsAny<Func<It.IsAnyType, Exception, string>>()),
           Times.Once);
   }
 }

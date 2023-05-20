@@ -9,10 +9,10 @@ public class CloudStorageObjectMetadata
 {
   [JsonPropertyName("fileName")]
   [Required]
-  public string? FileName { get; set; }
+  public string FileName { get; set; }
   [JsonPropertyName("contentType")]
   [Required]
-  public string? ContentType { get; set; }
+  public string ContentType { get; set; }
   [JsonPropertyName("labels")]
-  public IDictionary<string, string>? Labels { get; set; }
+  public IDictionary<string, string> Labels { get; set; }
 }
