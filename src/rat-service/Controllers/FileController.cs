@@ -3,11 +3,13 @@ using rat_service_core.Entities;
 using rat_service.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
+using Microsoft.AspNetCore.Authorization;
 
 namespace rat_service.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
+[Authorize(Policy = "AuthZPolicy")]
 public class FileController : ControllerBase
 {
     private readonly ICloudStorageClient _storageClient;
