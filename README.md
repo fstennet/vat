@@ -41,13 +41,10 @@ Make sure you add the `instance`, `domain`, `tenantId`, `clientId` and `scopes` 
 ## Endpoints
 
 ### List Files
-Retrieves a list of files.
-
-Method: `GET`
-
-URL: `api/file/list`
-
-Response: an array of filenames with their content type and labels.
+Retrieves a list of files.  
+Method: `GET`  
+URL: `api/file/list`  
+Response: an array of filenames with their content type and labels.  
 ```
 [
   {
@@ -63,14 +60,10 @@ Response: an array of filenames with their content type and labels.
 ```
 
 ### Upload Files
-
-Stores a new file
-
-Method: `POST`
-
-URL: `api/file?filename=`
-
-Response: an object with the stored file metadata (filename, path, content type and labels)
+Stores a new file  
+Method: `POST`  
+URL: `api/file?filename=`  
+Response: an object with the stored file metadata (filename, path, content type and labels)  
 ```
 {
   "fileName": "string",
@@ -85,13 +78,10 @@ Response: an object with the stored file metadata (filename, path, content type 
 ```
 
 ### Upload Files
-Stores a new file
-
-Method: `GET`
-
-URL: `api/file`
-
-Response: a base64 string with the content of the file
+Stores a new file  
+Method: `GET`  
+URL: `api/file`  
+Response: a base64 string with the content of the file  
 
 ## License
 The MIT License (MIT)
