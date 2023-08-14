@@ -59,7 +59,7 @@ Response: an array of filenames with their content type and labels.
 ]
 ```
 
-### Upload Files
+### Upload File
 Stores a new file  
 Method: `POST`  
 URL: `api/file?filename=`  
@@ -77,8 +77,8 @@ Response: an object with the stored file metadata (filename, path, content type 
 }
 ```
 
-### Upload Files
-Stores a new file  
+### Get File
+Fetches a new file  
 Method: `GET`  
 URL: `api/file`  
 Response: a base64 string with the content of the file  
